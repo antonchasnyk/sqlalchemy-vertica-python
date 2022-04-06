@@ -101,6 +101,8 @@ class VerticaDialect(PGDialect):
     def create_connect_args(self, url):
         opts = url.translate_connect_args(username='user')
         opts.update(url.query)
+        if 'connection_timeout' in opts.keys():
+            opts['connection_timeout'] = int(opts['connection_timeout'])
         return [[], opts]
 
 
